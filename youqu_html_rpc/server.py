@@ -3,12 +3,16 @@ from socketserver import ThreadingMixIn
 from xmlrpc.server import SimpleXMLRPCServer
 from youqu_html import YouQuHtml
 from youqu_html.conf import setting
+from youqu_html_rpc.config import config
 
 class ThreadXMLRPCServer(ThreadingMixIn, SimpleXMLRPCServer):
     pass
 
 def check_connected():
     return True
+
+def server_user_password():
+    return config.USERNAME, config.PASSWORD
 
 def gen_html(data_path, gen_path, http_path):
     setting.html_title = "YouQu Report"
@@ -26,6 +30,7 @@ def server():
     server.register_function(gen_html, "gen_html")
     server.register_function(check_connected, "check_connected")
     server.register_function(makedirs, "makedirs")
+    server.register_function(server_user_password, "server_user_password")
     print("Listen to client requests ...")
     server.serve_forever()
 
