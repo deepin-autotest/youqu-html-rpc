@@ -5,6 +5,8 @@ authors = [
     { name = "mikigo", email = "huangmingqiang@uniontech.com" },
 ]
 dependencies = [
+    "pexpect",
+    "funnylog2",
 ]
 dynamic = [
   "version",
