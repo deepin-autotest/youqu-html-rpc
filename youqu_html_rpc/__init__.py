@@ -1,4 +1,4 @@
-import os
+import copy
 import random
 import time
 from xmlrpc.client import ServerProxy
@@ -46,7 +46,8 @@ class YouQuHtmlRpc:
 
     @classmethod
     def gen_rpc(cls, allure_data_path, allure_html_path, local_ip, report_base_path, dirname):
-        log_server = servers = [i.strip() for i in config.SERVER_IP.split("/") if i]
+        servers = [i.strip() for i in config.SERVER_IP.split("/") if i]
+        log_server = copy.deepcopy(servers)
         while servers:
             config.SERVER_IP = random.choice(servers)
             if YouQuHtmlRpc.check_connected() is False:
